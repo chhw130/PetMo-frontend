@@ -32,14 +32,17 @@ function Board() {
 
   const fetchPostList = useCallback(async () => {
     const payload = {
-      boardAddress: regionDepth2,
-      animalTypes: selectedAnimalTabs,
+      boardAnimalTypes: selectedAnimalTabs,
       categoryType: selectedCategoryTab,
-      lastBoardId: 3,
     };
-
-    const response = await callPostsApi(payload);
-    setPostList((prevPostList) => [...prevPostList, ...response.data]);
+    try {
+      const response = await callPostsApi(payload);
+      if (response && response.data) {
+        setPostList((prevPostList) => [...prevPostList, ...response.data]);
+      }
+    } catch (error) {
+      console.error("게시글 불러오기 오류", error);
+    }
   }, [regionDepth2, selectedAnimalTabs, selectedCategoryTab]);
 
   useEffect(() => {
