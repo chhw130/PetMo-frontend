@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { LargeCard } from "petmo-design-system";
 import { CardFooter } from ".";
+import LargeCard from "./PostCard/LargeCard";
 
 const CardContent = styled(Link)`
   display: block;
@@ -20,9 +20,7 @@ function SummaryCard({ boardId, contentText, postData, postFooterData }) {
   return (
     <CardWrapper>
       <CardContent key={boardId} to={`post/:${boardId}`}>
-        <LargeCard isSummary={true} imageType="image" {...postData}>
-          {contentText}
-        </LargeCard>
+        <LargeCard postData={postData}>{contentText}</LargeCard>
       </CardContent>
       <CardFooter boardId={boardId} {...postFooterData} />
     </CardWrapper>

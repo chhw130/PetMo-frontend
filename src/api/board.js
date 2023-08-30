@@ -1,9 +1,9 @@
-import axios from "axios";
+import { axiosInstance as axios } from "./axios";
 import { BASE_URL } from "../constants";
-
+import { getCookie } from "../util";
 export const callSinglePostApi = async (postId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/board/${postId}`);
+    const response = await axios.get(`/posts/${postId}`);
 
     if (response.status !== 200) throw new Error("Request faild");
     return response;
@@ -13,19 +13,34 @@ export const callSinglePostApi = async (postId) => {
   }
 };
 
-export const callPostsApi = async ({
-  boardAddress,
-  animalTypes,
-  categoryType,
-  lastBoardId,
-}) => {
+// export const callPostsApi = async ({
+//   boardAddress,
+//   animalTypes,
+//   categoryType,
+//   lastBoardId,
+// }) => {
+//   try {
+//     const encodedUrl = encodeURI(
+//       `${BASE_URL}/posts/list?boardAddress=${boardAddress}&animalTypes=${animalTypes}&categoryType=${categoryType}&lastBoardId=${lastBoardId}`
+//     );
+
+//     const response = await axios.get(encodedUrl);
+
+//     if (response.status !== 200) throw new Error("Request faild");
+//     return response;
+//   } catch (error) {
+//     console.log(error);
+//     return error.response;
+//   }
+// };
+export const callPostsApi = async (payload) => {
+  const csrftoken = getCookie("csrftoken");
   try {
-    const encodedUrl = encodeURI(
-      `${BASE_URL}/board/list?boardAddress=${boardAddress}&animalTypes=${animalTypes}&categoryType=${categoryType}&lastBoardId=${lastBoardId}`
-    );
-
-    const response = await axios.get(encodedUrl);
-
+    const response = await axios.post(`/posts/`, payload, {
+      headers: {
+        "X-CSRFToken": csrftoken,
+      },
+    });
     if (response.status !== 200) throw new Error("Request faild");
     return response;
   } catch (error) {
@@ -34,9 +49,9 @@ export const callPostsApi = async ({
   }
 };
 
-export const callLikeApi = async (method, boardId) => {
+export const callLikeApi = async (payload) => {
   try {
-    const response = await axios[method](`${BASE_URL}/like/${boardId}`);
+    const response = await axios.post(`${BASE_URL}/likes/post`, payload);
 
     if (response.status !== 200 || response.status !== 201)
       throw new Error("Request faild");
@@ -47,9 +62,9 @@ export const callLikeApi = async (method, boardId) => {
   }
 };
 
-export const callBookmarkApi = async (method, boardId) => {
+export const callBookmarkApi = async (payload) => {
   try {
-    const response = await axios[method](`${BASE_URL}/bookmark/${boardId}`);
+    const response = await axios.post(`${BASE_URL}/bookmarks`, payload);
 
     if (response.status !== 200 || response.status !== 201)
       throw new Error("Request faild");

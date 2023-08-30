@@ -1,9 +1,9 @@
-import axios from "axios";
-import { BASE_URL } from "../constants";
+import { axiosInstance as axios } from "./axios";
+//import { BASE_URL } from "../constants";
 
 export const callCommentsApi = async (postId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/comments/${postId}`);
+    const response = await axios.get(`/comments/${postId}`);
 
     if (response.status !== 200) throw new Error("Request faild");
     return response;
@@ -15,7 +15,7 @@ export const callCommentsApi = async (postId) => {
 
 export const callAddCommentsApi = async (payload) => {
   try {
-    const response = await axios.post(`${BASE_URL}/comments/add`, payload);
+    const response = await axios.post(`/comments/add`, payload);
 
     if (response.status !== 201) throw new Error("Request faild");
     return response;
@@ -27,7 +27,7 @@ export const callAddCommentsApi = async (payload) => {
 
 export const callAddReplyCommentsApi = async (payload) => {
   try {
-    const response = await axios.post(`${BASE_URL}/comments/reply`, payload);
+    const response = await axios.post(`/comments/reply`, payload);
 
     if (response.status !== 201) throw new Error("Request faild");
     return response;

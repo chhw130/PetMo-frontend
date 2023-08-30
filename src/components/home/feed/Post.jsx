@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { SummaryCard } from "../../card";
-
+//
 function Post({ post }) {
   return <SummaryCard {...post} />;
 }

@@ -25,21 +25,24 @@ const Wrapper = styled.div`
 function Board() {
   const [postList, setPostList] = useState([]);
   const {
-    address: { regionDepth2 },
+    user_address: { regionDepth2 },
   } = useRecoilValue(userSelector);
   const selectedAnimalTabs = useRecoilValue(selectedAnimalTabsAtom);
   const selectedCategoryTab = useRecoilValue(selectedCategoryTabAtom);
 
   const fetchPostList = useCallback(async () => {
     const payload = {
-      boardAddress: regionDepth2,
-      animalTypes: selectedAnimalTabs,
+      boardAnimalTypes: selectedAnimalTabs,
       categoryType: selectedCategoryTab,
-      lastBoardId: 3,
     };
-
-    const response = await callPostsApi(payload);
-    setPostList((prevPostList) => [...prevPostList, ...response.data]);
+    try {
+      const response = await callPostsApi(payload);
+      if (response && response.data) {
+        setPostList((prevPostList) => [...prevPostList, ...response.data]);
+      }
+    } catch (error) {
+      console.error("게시글 불러오기 오류", error);
+    }
   }, [regionDepth2, selectedAnimalTabs, selectedCategoryTab]);
 
   useEffect(() => {

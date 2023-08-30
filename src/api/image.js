@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance as axios } from "./axios";
 import { BASE_URL } from "../constants";
 
 export const callUploadImageApi = async (payload) => {
@@ -22,7 +22,7 @@ export const callUploadImageApi = async (payload) => {
 
 export const callSingleImageUrlApi = async (imageId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/image/${imageId}`);
+    const response = await axios.get(`/image/${imageId}`);
 
     if (response.status !== 200) throw new Error("Request faild");
     return response;

@@ -1,53 +1,52 @@
-import { callMultipleImageUrlApi } from "../../api";
 import { calcElapsedTime } from "../../util";
 
 export const postDataFormat = ({
-  boardId,
-  nickname,
-  boardAddress,
+  pk,
+  categoryType: { categoryType },
+  user: { username, profile, regionDepth2, regionDepth3 },
   boardAnimalTypes,
-  categoryType,
   elapsedTime,
-  images,
+  Image,
   content,
   likeCount,
   likeCheck,
+  viewCount,
+  commentCount,
   bookmarkCount,
   bookmarkCheck,
-  viewCount,
 }) => {
   return {
-    boardId: boardId,
+    boardId: pk,
     contentText: content,
     postData: {
       userBadgeData: {
-        userName: nickname,
+        userName: username,
         //api에서 데이터 빠져서 임의로 이미지 넣은 링크
-        imgSrc:
-          "http://petmo-storybook.site/static/media/avatar_no_img.deb0da5a.png",
-        address: boardAddress,
+        imgSrc: profile,
+        address: `${regionDepth2} ${regionDepth3}`,
         elapsedTime: elapsedTime,
       },
       mainTag: categoryType,
-      subTags: boardAnimalTypes,
-      images: images,
+      subTags: boardAnimalTypes.map((item) => item.animalTypes),
+      images: Image,
     },
     postFooterData: {
       likeCount,
       likeCheck,
       bookmarkCount,
       bookmarkCheck,
+      commentCount,
       viewCount,
     },
   };
 };
 
-export const imageDataFormat = async (imageIds) => {
-  const imageResponses = await callMultipleImageUrlApi(imageIds);
-  const images = imageResponses.map(({ data }, i) => {
+export const imageDataFormat = async (Image) => {
+  // const imageResponses = await callMultipleImageUrlApi(imageIds);
+  const images = Image.map((imgObj) => {
     return {
-      id: imageIds[i],
-      src: data.imagePath,
+      id: imgObj.img_path,
+      img_path: imgObj.img_path,
       alt: "게시물 이미지",
     };
   });
@@ -55,8 +54,8 @@ export const imageDataFormat = async (imageIds) => {
 };
 
 export const createPost = async (postData) => {
-  const images = await imageDataFormat(postData.imageIds);
+  const images = await imageDataFormat(postData.Image);
   const elapsedTime = calcElapsedTime(postData.createdDate);
-  const post = postDataFormat({ ...postData, elapsedTime, images });
+  const post = postDataFormat({ ...postData, elapsedTime, Image: images });
   return post;
 };
