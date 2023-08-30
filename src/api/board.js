@@ -35,7 +35,6 @@ export const callSinglePostApi = async (postId) => {
 // };
 export const callPostsApi = async (payload) => {
   const csrftoken = getCookie("csrftoken");
-  console.log(csrftoken);
   try {
     const response = await axios.post(`/posts/`, payload, {
       headers: {

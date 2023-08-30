@@ -1,4 +1,3 @@
-//import { callMultipleImageUrlApi } from "../../api";
 import { calcElapsedTime } from "../../util";
 
 export const postDataFormat = ({
@@ -43,10 +42,8 @@ export const postDataFormat = ({
 };
 
 export const imageDataFormat = async (Image) => {
-  console.log(Image);
-  //const imageResponses = await callMultipleImageUrlApi(imageIds);
+  // const imageResponses = await callMultipleImageUrlApi(imageIds);
   const images = Image.map((imgObj) => {
-    console.log("41", imgObj);
     return {
       id: imgObj.img_path,
       img_path: imgObj.img_path,
@@ -57,10 +54,8 @@ export const imageDataFormat = async (Image) => {
 };
 
 export const createPost = async (postData) => {
-  console.log("2", postData.Image);
   const images = await imageDataFormat(postData.Image);
   const elapsedTime = calcElapsedTime(postData.createdDate);
   const post = postDataFormat({ ...postData, elapsedTime, Image: images });
-  console.log("post", post);
   return post;
 };

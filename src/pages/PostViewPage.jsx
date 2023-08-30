@@ -6,8 +6,9 @@ import {
   PageHeader,
   BlankComment,
   Comments,
-  FullCard,
+  // FullCard,
   CommentInput,
+  FullCard,
 } from "../components";
 import { useProcessSinglePostData, useProcessCommentsData } from "../hooks";
 import { PageWrapper } from "../styled";
