@@ -10,28 +10,32 @@ export const postDataFormat = ({
   Image,
   content,
   likeCount,
+  likeCheck,
   viewCount,
   commentCount,
   bookmarkCount,
+  bookmarkCheck,
 }) => {
   return {
-    pk: pk,
+    boardId: pk,
     contentText: content,
     postData: {
       userBadgeData: {
         userName: username,
         //api에서 데이터 빠져서 임의로 이미지 넣은 링크
-        profile: profile,
+        imgSrc: profile,
         address: `${regionDepth2} ${regionDepth3}`,
         elapsedTime: elapsedTime,
       },
       mainTag: categoryType,
       subTags: boardAnimalTypes.map((item) => item.animalTypes),
-      Image: Image,
+      images: Image,
     },
     postFooterData: {
       likeCount,
+      likeCheck,
       bookmarkCount,
+      bookmarkCheck,
       commentCount,
       viewCount,
     },

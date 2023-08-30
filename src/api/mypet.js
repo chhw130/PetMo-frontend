@@ -1,10 +1,10 @@
 import { axiosInstance as axios } from "./axios";
-import { BASE_URL } from "../constants";
+//import { BASE_URL } from "../constants";
 import { getCookie } from "../util";
 export const callRegisterPetApi = async (payload) => {
   const csrftoken = getCookie("csrftoken");
   try {
-    const response = await axios.post(`${BASE_URL}/users/animals`, payload, {
+    const response = await axios.post(`/users/animals`, payload, {
       headers: {
         "X-CSRFToken": csrftoken,
       },
