@@ -21,7 +21,7 @@ function LargeCard({ postData, children }) {
         <Chips {...{ mainTag, subTags }}></Chips>
       </div>
       <StyledCardText {...{ isSummary, lineClamp }}>{children}</StyledCardText>
-      {imgLength && <CardImages {...{ images, imageType }} />}
+      {imgLength ? <CardImages {...{ images, imageType }} /> : null}
     </>
   );
 }
