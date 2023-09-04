@@ -3,7 +3,7 @@ import { axiosInstance as axios } from "./axios";
 
 export const callCommentsApi = async (postId) => {
   try {
-    const response = await axios.get(`/comments/${postId}`);
+    const response = await axios.get(`/posts/${postId}/comments`);
 
     if (response.status !== 200) throw new Error("Request faild");
     return response;

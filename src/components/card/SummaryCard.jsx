@@ -19,7 +19,7 @@ const CardWrapper = styled.li`
 function SummaryCard({ boardId, contentText, postData, postFooterData }) {
   return (
     <CardWrapper>
-      <CardContent key={boardId} to={`post/:${boardId}`}>
+      <CardContent key={boardId} to={`post/${boardId}`}>
         <LargeCard postData={postData}>{contentText}</LargeCard>
       </CardContent>
       <CardFooter boardId={boardId} {...postFooterData} />

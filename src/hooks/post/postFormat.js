@@ -14,9 +14,10 @@ export const postDataFormat = ({
   commentCount,
   bookmarkCount,
   bookmarkCheck,
+  id,
 }) => {
   return {
-    boardId: pk,
+    boardId: pk || id,
     contentText: content,
     postData: {
       userBadgeData: {
