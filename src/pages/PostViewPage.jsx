@@ -20,6 +20,7 @@ const CommentsWrapper = styled.div`
 
 function PostViewPage() {
   const { postId } = useParams();
+
   const post = useProcessSinglePostData(postId.replace(":", ""));
   const comments = useProcessCommentsData(postId.replace(":", ""));
   const setCommentToWho = useSetRecoilState(commentToWhoAtom);
